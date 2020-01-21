@@ -1,0 +1,86 @@
+import React from 'react';
+import Addlist from './addlist';
+import axios from 'axios';
+
+class TestUI extends React.Component
+{
+    constructor()
+    {
+        super();
+        this.state={
+            toggleID:false,
+            startuplist:[
+                {
+                    "name":"t","country":"u"
+                }
+            ]
+        };
+    }
+    componentDidMount() {
+        axios.get(``)
+          .then(res => {
+            const list = res.data;
+            this.setState({ startuplist:list });
+          })
+      }
+    updateToggle(event)
+    {
+        
+        this.setState(state=>({toggleID:!state.toggleID}));
+        console.log('toggleID',this.state.toggleID);
+    }
+    render(){
+        return(
+            <div>
+                <div style={{    textAlign: '-webkit-center',
+    backgroundColor: 'purple',
+    marginBottom: '5%'}}>
+                    <span>Welcome to startuworld</span>
+                    </div>
+                    <div>
+                        <div style={{marginBottom:"2%"}}>
+                            <span style={{marginLeft:"22%",
+                        marginBottom:"2%"
+                        }}>list of startups</span>
+                        </div>
+                        <div style={{marginLeft:"26%",marginBottom:"3%"}}>
+                            {
+                                this.state.startuplist.map(obj=>(
+                                    <div>
+                                        {obj.country}<span>,</span>{obj.name}
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" name="CreateNew" 
+                        style={{backgoundcolor:"purple",marginLeft:"30%",backgroundColor: 'purple'}}
+                        onClick={(e)=>this.updateToggle(e)}
+                        >Create New</button>
+    
+                    </div>
+                    { this.state.toggleId && <div>
+                    {
+                     <div>
+                        <h1 style={{backgroundColor: "lightblue"}}>NEW STARTUP</h1>
+                        startupname:
+                         <input
+                             type="text"
+                        />
+                        Country:
+                         <input
+                             type="text"
+                        />
+                            </div>
+                     }
+
+                    </div>
+                    }
+            </div>
+        );
+    };
+        
+    
+}
+export default TestUI;
